@@ -1,0 +1,115 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width" />
+        <style type="text/css">
+            body {
+                margin: 0px;
+                padding: 0px;
+                font-size: 12pt;
+            }
+
+            table.table-style-one {
+                font-family: verdana,arial,sans-serif;
+                font-size:11px;
+                color:#333333;
+                border-width: 1px;
+                border-color: #3A3A3A;
+                border-collapse: collapse;
+            }
+            table.table-style-one th {
+                border-width: 1px;
+                padding: 8px;
+                border-style: solid;
+                border-color: #3A3A3A;
+                background-color: #B3B3B3;
+            }
+            table.table-style-one td {
+                border-width: 1px;
+                padding: 8px;
+                border-style: solid;
+                border-color: #3A3A3A;
+                background-color: #ffffff;
+                word-break: break-all;
+            }
+        </style>
+
+        <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('#values').keyup(function() {
+                    var $field = $(this);
+                    var beforeVal = $field.val();
+
+                    $("#wv_close").prop("checked") ;
+
+
+                    setTimeout(function() {
+                        var afterVal = encodeURI($field.val());
+
+                        var defaultUrl = "ncmop://custom_value?values=" + afterVal;
+                        var closeStr = "&wv_close=yes";
+
+                        if ($("#wv_close").prop("checked")) {
+                            defaultUrl += closeStr;
+                        }
+
+                        setCustomValueUrl(defaultUrl);
+                    }, 0);
+                });
+
+                $("#wv_close").change(function() {
+                    var closeStr = "&wv_close=yes";
+                    var url = $("#custom_value_url").text();
+
+                    if ($("#wv_close").prop("checked")) {
+                        if (url.indexOf(closeStr) < 0) {
+                            url += closeStr;
+                        }
+                    } else {
+                        if (url.indexOf(closeStr) > 0) {
+                            url = url.replace(closeStr, "");
+                        }
+                    }
+
+                    setCustomValueUrl(url);
+                });
+            })
+            
+            function setCustomValueUrl(str) {
+                $("#custom_value_url").text(str);
+                $("#custom_value_url").attr("href", str);
+            }
+        </script>
+    </head>
+
+    <body>
+        <input type="hidden" id="_values" value="" />
+
+        <div style="font-size: 16pt;">Sample.html</div>
+        <br />
+
+        <table class="table-style-one" width="100%">
+            <tr>
+                <th width="30%">Action</th>
+                <th>Execute</th>
+            <tr>
+                <td>1. WebView 닫기</td>
+                <td><a href="ncmop://close" target="deeplink">ncmop://close</a></td>
+            </tr>
+            <tr>
+                <td>2. 외부 브라우저 띄우기</td>
+                <td><a href="ncmop://open_external_browser?url=http%3A//www.plaync.com&wv_close=no"  target="deeplink">ncmop://open_external_browser?url=http%3A//www.plaync.com&wv_close=no</a></td>
+            </tr>
+            <tr>
+                <td>Custom value(Web -> app)</td>
+                <td>
+                    <input type="checkbox" name="wv_close" id="wv_close" value="yes">WebView 닫기 옵션<br />
+                    value : <input type="text" name="values" id="values">
+                    <hr />
+                    <a href="ncmop://custom_value?values=" id="custom_value_url" target="deeplink">ncmop://custom_value?values=</a>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>
