@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>    
+    <meta name="viewport" http-equiv="Content-Type" charset="UTF-8" content="width=device-width, initial-scale=1, viewport-fit=cover" >  
+    <style type="text/css">
+        body{margin:0;padding:0}
+        img{border:0 none;vertical-align:top}
+        a{text-decoration:none}
+    </style>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/iScroll/5.2.0/iscroll-lite.min.js"></script>
+    <script type="text/javascript">
+    var imgScroll;
+    function loaded() {
+        imgScroll = new IScroll('#imgDiv', {
+            scrollY: false,
+            scrollbar: false,
+            click: true            
+        });
+    }    
+    </script>
+    <style type="text/css">
+    #imgDiv {
+        position: absolute;
+        z-index: 1;
+        top: 0px;
+        bottom: 0px;
+        left: 0;
+        width: 100%;
+        overflow: hidden;
+    }
+    </style>
+</head>
+<body bgcolor="#000000" onload="loaded()">
+    <div id="imgDiv">
+        <div>
+            <a href="ncmop://campaign_action?action_code=1&return_url=https%3A%2F%2Fbns2.plaync.com" target="deeplink"><img src="https://harry-jung.github.io/10mb.png" width="100%" alt="" /></a>    
+        </div>
+    </div>
+</body>
+</html>
